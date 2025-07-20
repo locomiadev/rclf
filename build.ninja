@@ -1,0 +1,20 @@
+cflags = -std=c99 -Wall -Wextra
+
+rule cc
+  command = printf '\033[1;34m[compilating]\033[0m    %s\n' $in && gcc $cflags -c $in -o $out
+  description = CC $in
+
+rule link
+  command = printf '\033[1;32m[linking]\033[0m    %s\n' $out && gcc $in -o $out && rm -f *.o
+  description = LD $out
+
+build parser.o: cc parser.c
+build printer.o: cc printer.c
+build main.o: cc main.c
+build errors.o: cc errors.c
+build sntchk.o: cc sntchk.c
+
+build rclf: link main.o parser.o printer.o errors.o sntchk.o
+
+default rclf
+
