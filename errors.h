@@ -1,4 +1,3 @@
-#ifndef RCLF_ERRORS_H
 #define RCLF_ERRORS_H
 
 #include <stdio.h>
@@ -31,4 +30,5 @@ int error_invalid_key_count(const char *filepath, int expected, int actual);
 int error_invalid_value_count(const char *filepath, int key_index, int expected, int actual);
 int error_memory_alloc(const char *filepath);
 int error_invalid_syntax(const char *filepath, const char *line);
+int error_missing_column_index(int index);
 #endif
