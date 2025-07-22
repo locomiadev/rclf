@@ -210,4 +210,3 @@ void rclf_free(RclfDocument *doc) {
     free(doc->columns);
     free(doc);
 }
-
