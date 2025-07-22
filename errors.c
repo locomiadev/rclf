@@ -47,3 +47,7 @@ int error_invalid_syntax(const char *filepath, const char *line) {
     fprintf(stderr, "[rclf] return %d: invalid syntax in %s: %s\n", RCLF_ERR_INVALID_SYNTAX, filepath, line);
     return RCLF_ERR_INVALID_SYNTAX;
 }
+int error_missing_column_index(int index) {
+	fprintf(stderr, "[rclf] return %d: column index %d not found\n", RCLF_ERR_INVALID_ARGS, index);
+	return RCLF_ERR_INVALID_ARGS;
+}
