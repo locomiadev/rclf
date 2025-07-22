@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     bool check_syntax = true;
 
     if (argc > 1 && strcmp(argv[1], "version") == 0) {
-        printf("  rclf: \033[1m\033[94mversion 0.1\033[0m\n");
+        printf("  rclf: \033[1m\033[94mversion 0.2\033[0m\n");
         return 0;
     }
 
@@ -66,16 +66,31 @@ int main(int argc, char *argv[]) {
         return error_parsing_failed();
     }
 
+    int actual_col_idx = -1;
+    if (col_index != -1) {
+        for (int i = 0; i < doc->column_count; i++) {
+            if (doc->columns[i].index == col_index) {
+                actual_col_idx = i;
+                break;
+            }
+        }
+        if (actual_col_idx == -1) {
+            rclf_free(doc);
+            return error_missing_column_index(col_index);
+        }
+    }
+
     if (col_index == -1) {
         rclf_print_all(doc);
     } else if (key_index == -1) {
-        rclf_print_column(doc, col_index);
+        rclf_print_column(doc, actual_col_idx);
     } else if (val_index == -1) {
-        rclf_print_key(doc->columns[col_index].keys[key_index], col_index, key_index, 10);
+        rclf_print_key(doc->columns[actual_col_idx].keys[key_index], col_index, key_index, 10);
     } else {
-        rclf_print_value(doc->columns[col_index].keys[key_index].values[val_index], col_index, key_index, val_index, 10);
+        rclf_print_value(doc->columns[actual_col_idx].keys[key_index].values[val_index], col_index, key_index, val_index, 10);
     }
 
     rclf_free(doc);
     return 0;
 }
+
