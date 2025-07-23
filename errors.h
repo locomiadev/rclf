@@ -1,3 +1,4 @@
+#ifndef RCLF_ERRORS_H
 #define RCLF_ERRORS_H
 
 #include <stdio.h>
